@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-        <!-- Google Web Fonts -->
+    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
- 
+
     <style>
-            body {
+        body {
             font-family: "Poppins", sans-serif;
             margin: 0;
             padding: 0;
@@ -22,8 +23,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative; 
-            overflow: hidden; 
+            position: relative;
+            overflow: hidden;
         }
 
         body::before {
@@ -37,15 +38,17 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            filter: blur(3px); 
-            z-index: -1; 
+            filter: blur(3px);
+            z-index: -1;
         }
-        form{
+
+        form {
             width: 93%;
             padding-right: 30px;
             display: flex;
             flex-direction: column;
         }
+
         .container {
             display: flex;
             background: white;
@@ -55,16 +58,19 @@
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .login-box {
             width: 50%;
             padding: 40px;
             text-align: center;
         }
+
         .logo {
             font-size: 24px;
             font-weight: bold;
             color: #8B5E3C;
         }
+
         .input-field {
             width: 100%;
             padding: 12px;
@@ -75,13 +81,16 @@
             border: 1px solid #ccc;
             background: #FCE5C7;
         }
+
         .password-container {
             margin-top: -5px;
         }
-        h3{
+
+        h3 {
             font-weight: bolder;
             text-transform: uppercase;
         }
+
         .toggle-password {
             position: absolute;
             right: 15px;
@@ -89,12 +98,14 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+
         .forgot-password {
             display: block;
             text-align: right;
             font-size: 12px;
             margin-top: 5px;
         }
+
         .btn {
             width: 105%;
             padding: 12px;
@@ -106,84 +117,136 @@
             cursor: pointer;
             margin-top: 15px;
         }
+
         .signup-text {
             margin-top: 15px;
         }
+
         .signup-link {
             font-weight: bold;
             color: #8B5E3C;
             text-decoration: none;
         }
+
         .image-box {
             width: 50%;
         }
+
         .image-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 15px 15px 15px 15px;
-          
+
         }
-        .second{
+
+        .second {
             margin-top: -15px;
         }
+
         .font-weight-lighter {
-  font-weight: lighter !important;
-}
-    .font-weight-bolder {
-  font-weight: bolder !important;
-    }
-    .text-primary {
-  color: #f78d00 !important;
-}
-.text-dark {
-  color: #184a57 !important;
-}
+            font-weight: lighter !important;
+        }
 
-a.text-dark:hover, a.text-dark:focus {
-  color: black !important;
-}
-    h1{
-       margin-top: -10px; 
-    }
- .forgot-password{
-    text-decoration: none;
- }
- .btn-primary {
-  color: #fff;
-  background-color: #8B5E3C;
-  border-color: #f78d00;
-}
+        .font-weight-bolder {
+            font-weight: bolder !important;
+        }
 
-.btn-primary:hover {
-  color: #fff;
-  background-color: #da7e05;
-  border-color: #af6402;
-}
+        .text-primary {
+            color: #f78d00 !important;
+        }
+
+        .text-dark {
+            color: #184a57 !important;
+        }
+
+        a.text-dark:hover,
+        a.text-dark:focus {
+            color: black !important;
+        }
+
+        h1 {
+            margin-top: -10px;
+        }
+
+        .forgot-password {
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #8B5E3C;
+            border-color: #f78d00;
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #da7e05;
+            border-color: #af6402;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="container">
-      
+
         <div class="login-box">
             <h1 class="m-0 text-primary">Q<span class="text-dark">NITY</span></h1>
             <h3>Log in to Explore </h3>
             <h3 class="second">Your Next Great Adventure!</h3>
-            <form>
-                <input type="text" placeholder="Email" class="input-field">
+            <form id="loginForm">
+                <input id="email" name="email" type="email" placeholder="Email" class="input-field" required>
                 <div class="password-container">
-                    <input type="password" placeholder="Password" class="input-field">
+                    <input id="password" name="password" type="password" placeholder="Password" class="input-field">
                     <span class="toggle-password"></span>
                 </div>
                 <a href="#" class="forgot-password">Forgot Password?</a>
                 <button type="submit" class="btn font-weight-bolder btn-primary">Log in</button>
+                <p id="result" style="margin-top: 10px; font-weight: bold;"></p>
             </form>
-            <p class="signup-text font-weight-lighter">Don't have an account? <a href="signup.html" class="signup-link">Sign up now!!</a></p>
+            <p class="signup-text font-weight-lighter">Don't have an account? <a href="signup.html"
+                    class="signup-link">Sign up now!!</a></p>
         </div>
         <div class="image-box">
             <img src=" img/Intro-Binh-Dinh-Vietnam.jpg" alt="Adventure Image">
         </div>
     </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const resultEl = document.getElementById("result");
+
+            try {
+                const response = await fetch("http://localhost:8080/QNITY_BE/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({ email, password })
+                });
+
+                const data = await response.json();
+                resultEl.textContent = data.message;
+                resultEl.style.color = data.status === "success" ? "green" : "red";
+
+                if (data.status === "success") {
+                    setTimeout(() => {
+                        window.location.href = "http://127.0.0.1:5500/index.html";
+                    }, 1000);
+                }
+            } catch (error) {
+                console.error("Error during login:", error);
+                resultEl.textContent = "An unexpected error occurred.";
+                resultEl.style.color = "red";
+            }
+        });
+    </script>
+
 </body>
+
 </html>
