@@ -192,7 +192,9 @@
     <div class="container">
 
         <div class="login-box">
-            <a href="index.html" style="text-decoration: none;"><h1 class="m-0 text-primary">Q<span class="text-dark">NITY</span></h1></a>
+            <a href="index.html" style="text-decoration: none;">
+                <h1 class="m-0 text-primary">Q<span class="text-dark">NITY</span></h1>
+            </a>
             <h3>Log in to Explore </h3>
             <h3 class="second">Your Next Great Adventure!</h3>
             <form id="loginForm">
@@ -214,38 +216,46 @@
     </div>
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
-            const resultEl = document.getElementById("result");
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
 
             try {
-                const response = await fetch("http://localhost:8080/QNITY_BE/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: new URLSearchParams({ email, password })
+                const res = await fetch('http://localhost:8080/QNITY_BE/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
                 });
 
-                const data = await response.json();
-                resultEl.textContent = data.message;
-                resultEl.style.color = data.status === "success" ? "green" : "red";
-
-                if (data.status === "success") {
-                    setTimeout(() => {
-                        window.location.href = "http://127.0.0.1:5500/index.html";
-                    }, 1000);
+                if (!res.ok) {
+                    alert('Login Failed');
+                    return;
                 }
-            } catch (error) {
-                console.error("Error during login:", error);
-                resultEl.textContent = "An unexpected error occurred.";
-                resultEl.style.color = "red";
+                const data = await res.json();
+                console.log("Server response:", data);
+                console.log("Token from response:", data.data.jwt_token);
+                localStorage.setItem('jwt_token', data.data.jwt_token); // Lưu token                
+                if (data.message == 'Login failed') {
+                    alert('Login Failed');
+                    return;
+                }
+                alert('Login Success!');
+                window.location.href = "/index.html";
+
+
+
+            } catch (err) {
+                alert('Wrong account or server error');
+                console.error(err);
             }
         });
     </script>
 
 </body>
+
 </html>

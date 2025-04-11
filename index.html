@@ -36,6 +36,7 @@
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <p class="nav-item nav-link" id="welcomeText"></p>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
@@ -44,7 +45,8 @@
                     <a href="food.html" class="nav-item nav-link">Food</a>
                     <a href="mytrip.html" class="nav-item nav-link">My trip</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    <a href="login.html" class="nav-item nav-link">Login</a>
+                    <a href="login.html" class="nav-item nav-link loginButton ">Login</a>
+                    <a href="" class="nav-item nav-link" id="logoutButton">Log out</a>
                 </div>
             </div>
         </nav>
@@ -61,7 +63,8 @@
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">From AI to Adventure:</h4>
                             <h1 class="display-3 text-white mb-md-4">Personalized Travel in Quy Nhon.</h1>
-                            <a href="login.html" class="btn btn-primary py-md-3 px-md-5 mt-2 phuc-01">Login Now</a>
+                            <a href="login.html" class="btn btn-primary py-md-3 px-md-5 mt-2 phuc-01 loginButton">Login
+                                Now</a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +74,8 @@
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">From AI to Adventure:</h4>
                             <h1 class="display-3 text-white mb-md-4">Discover Amazing Places With QNITY</h1>
-                            <a href="login.html" class="btn btn-primary py-md-3 px-md-5 mt-2 phuc-01">Login Now</a>
+                            <a href="login.html" class="btn btn-primary py-md-3 px-md-5 mt-2 phuc-01 loginButton">Login
+                                Now</a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +120,7 @@
                                 <img class="img-fluid" src="img/about-2.jpg" alt="">
                             </div>
                         </div>
-                        <a href="login.html" class="btn btn-primary mt-1">Login Now</a>
+                        <a href="login.html" class="btn btn-primary mt-1 loginButton">Login Now</a>
                     </div>
                 </div>
             </div>
@@ -315,9 +319,46 @@
     </div>
     <!-- Footer End -->
 
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- Logout Proccess -->
+    <script>
+        window.onload = function () {
+            try {
+                const token = localStorage.getItem('jwt_token');
+                const loginBtn = document.querySelectorAll('.loginButton');
+                const logoutBtn = document.getElementById('logoutButton');
 
+                if (loginBtn && logoutBtn) {
+                    if (token) {
+                        loginBtn.forEach(btn => {
+                            btn.style.display = 'none';
+                        });
+                        logoutBtn.style.display = 'inline-block';
+                        console.log("jwt_token", token)
+                    } else {
+                        logoutBtn.style.display = 'none';
+                        loginBtn.style.display = 'inline-block';
+                    }
+
+                    // Thêm sự kiện logout
+                    logoutBtn.addEventListener('click', () => {
+                        localStorage.removeItem('jwt_token');
+                        alert('You have been logged out.');
+                        // Cập nhật lại trạng thái nút
+                        loginBtn.forEach(btn => {
+                            btn.style.display = 'inline-block'; // hoặc gán sự kiện gì đó
+                        });
+                        logoutBtn.style.display = 'none';
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to check token:", error);
+            }
+        };
+
+    </script>
     <!-- JavaScript Libraries -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
