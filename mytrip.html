@@ -22,6 +22,13 @@
     <header>
         <h1>Your Travel Itinerary To Quy Nhon</h1>
     </header>
+    <script>
+        const token = localStorage.getItem("jwt_token");
+        if (!token) {
+            alert('You need log in or sign up!')        
+            window.location.href = "index.html"; 
+        }
+    </script>
     <main>
         <section class="day-section" data-aos="fade-up">
             <div class="day-image">
