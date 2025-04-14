@@ -370,6 +370,7 @@
             const budget = document.getElementById('budget').value.trim();
             const checkboxes = document.querySelectorAll('input[name="interests"]:checked');
             const interests = Array.from(checkboxes).map(checkbox => checkbox.value);
+            const request_id = null; 
 
             // validate date input
             const start = new Date(startdate);
@@ -410,7 +411,12 @@
                 alert(`Ngân sách quá thấp. Tối thiểu là ${minTotalBudget.toLocaleString()} VNĐ cho ${people} người trong ${totalDays} ngày.`);
                 return;
             }
-
+            //lấy token
+            const token = localStorage.getItem("jwt_token");
+            if (!token) {
+                alert('You need log in or sign up!')
+                window.location.href = "login.html";
+            }
             // In tất cả dữ liệu ra console để kiểm tra
             console.log("Start date:", startdate);
             console.log("End date:", enddate);
@@ -420,9 +426,12 @@
 
             //gửi request đến BE API
             try {
-                const res = await fetch('http://localhost:8080/QNITY_BE/generate-itinerary', {
+                const res = await fetch('http://localhost:8080/QNITY_BE/user-request', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
                     body: JSON.stringify({
                         startdate,
                         enddate,
@@ -438,12 +447,39 @@
                 }
                 const data = await res.json();
                 console.log("Server response:", data);
-                if (data.message == 'Request failed') {
+                if (data.message == 'Cannot insert') {
                     alert('Request Failed');
                     return;
                 }
-                alert('Request success!');
-                window.location.href = "/index.html";
+                if (data.message == 'OK' && data.data != 0) {
+                    console.log('idrequest', data.data);
+                    request_id = data.data;
+                    const res1 = await fetch('http://localhost:8080/QNITY_BE/generate-itinerary', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            request_id,
+                            startdate,
+                            enddate,
+                            people,
+                            budget,
+                            interests
+                        })
+                    });
+                    if (!res1.ok) {
+                        alert('Call AI failed');
+                        return;
+                    }
+                    const data1 = await res1.json();
+                    console.log("Server response:", data1);
+                    if (data1.message != 'OK') {
+                        alert('Call AI Failed 1');
+                        return;
+                    }
+                    alert('Success');
+                }
 
 
 
