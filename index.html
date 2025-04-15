@@ -370,7 +370,7 @@
             const budget = document.getElementById('budget').value.trim();
             const checkboxes = document.querySelectorAll('input[name="interests"]:checked');
             const interests = Array.from(checkboxes).map(checkbox => checkbox.value);
-            const request_id = null; 
+            let request_id = null;
 
             // validate date input
             const start = new Date(startdate);
@@ -446,7 +446,7 @@
                     return;
                 }
                 const data = await res.json();
-                console.log("Server response:", data);
+                console.log("Server response 11111:", data);
                 if (data.message == 'Cannot insert') {
                     alert('Request Failed');
                     return;
@@ -454,6 +454,17 @@
                 if (data.message == 'OK' && data.data != 0) {
                     console.log('idrequest', data.data);
                     request_id = data.data;
+                    console.log(222, "http://localhost:8080/QNITY_BE/generate-itinerary", JSON.stringify({
+                        request_id,
+                        startdate,
+                        enddate,
+                        people,
+                        budget,
+                        interests
+                    }));
+
+
+
                     const res1 = await fetch('http://localhost:8080/QNITY_BE/generate-itinerary', {
                         method: 'POST',
                         headers: {
@@ -484,8 +495,8 @@
 
 
             } catch (err) {
-                alert('Wrong request or server error');
-                console.error(err);
+                //alert('Wrong request or server error');
+                console.error(999, err);
             }
 
         });
