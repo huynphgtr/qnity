@@ -224,7 +224,7 @@
                             <h1 class="text-white m-0">Plan Your Trip</h1>
                         </div>
                         <div class="card-body rounded-bottom bg-white p-5">
-                            <form>
+                            <form id="userRequestForm">
                                 <div class="form-group">
                                     <label class="text-dark font-weight-bolder" for="start-date">Start Date</label>
                                     <input type="date" id="start-date" name="start-date" class="form-control p-4"
@@ -336,7 +336,6 @@
                             btn.style.display = 'none';
                         });
                         logoutBtn.style.display = 'inline-block';
-                        console.log("jwt_token", token)
                     } else {
                         logoutBtn.style.display = 'none';
                         loginBtn.style.display = 'inline-block';
@@ -359,6 +358,150 @@
         };
 
     </script>
+
+    <!-- Get user request -->
+    <script>
+        document.getElementById('userRequestForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const startdate = document.getElementById('start-date').value;
+            const enddate = document.getElementById('end-date').value;
+            const people = document.getElementById('people').value.trim();
+            const budget = document.getElementById('budget').value.trim();
+            const checkboxes = document.querySelectorAll('input[name="interests"]:checked');
+            const interests = Array.from(checkboxes).map(checkbox => checkbox.value);
+            let request_id = null;
+
+            // validate date input
+            const start = new Date(startdate);
+            const end = new Date(enddate);
+            const diffDays = (end - start) / (1000 * 60 * 60 * 24);
+            if (!startdate || !enddate) {
+                alert("Vui lòng nhập đầy đủ ngày đi và ngày về.");
+                return;
+            }
+            if (start >= end) {
+                alert("Ngày đi phải trước ngày về.");
+                return;
+            }
+            if (diffDays > 10) {
+                alert("Qnity chỉ hỗ trợ lịch trình tối đa 10 ngày.");
+                return;
+            }
+            // validate number of people
+            if (!people || isNaN(people) || parseInt(people) <= 0) {
+                alert("Số người phải là số nguyên dương.");
+                return;
+            }
+            if (parseInt(people) > 30) {
+                alert("Qnity hiện chỉ hỗ trợ tối đa 30 người trong một lịch trình.");
+                return;
+            }
+            //validate budget
+            const minBudget = 350000; // cho 1 người / 1 ngày
+            const totalDays = diffDays + 1; // đếm cả ngày đi
+
+            const minTotalBudget = minBudget * people * totalDays;
+
+            if (!budget || isNaN(budget) || parseInt(budget) <= 0) {
+                alert("Ngân sách không hợp lệ.");
+                return;
+            }
+            if (parseInt(budget) < minTotalBudget) {
+                alert(`Ngân sách quá thấp. Tối thiểu là ${minTotalBudget.toLocaleString()} VNĐ cho ${people} người trong ${totalDays} ngày.`);
+                return;
+            }
+            //lấy token
+            const token = localStorage.getItem("jwt_token");
+            if (!token) {
+                alert('You need log in or sign up!')
+                window.location.href = "login.html";
+            }
+            // In tất cả dữ liệu ra console để kiểm tra
+            console.log("Start date:", startdate);
+            console.log("End date:", enddate);
+            console.log("People:", people);
+            console.log("Budget:", budget);
+            console.log("Interests:", interests);
+
+            //gửi request đến BE API
+            try {
+                const res = await fetch('http://localhost:8080/QNITY_BE/user-request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({
+                        startdate,
+                        enddate,
+                        people,
+                        budget,
+                        interests
+                    })
+                });
+
+                if (!res.ok) {
+                    alert('Request failed');
+                    return;
+                }
+                const data = await res.json();
+                console.log("Server response 11111:", data);
+                if (data.message == 'Cannot insert') {
+                    alert('Request Failed');
+                    return;
+                }
+                if (data.message == 'OK' && data.data != 0) {
+                    console.log('idrequest', data.data);
+                    request_id = data.data;
+                    console.log(222, "http://localhost:8080/QNITY_BE/generate-itinerary", JSON.stringify({
+                        request_id,
+                        startdate,
+                        enddate,
+                        people,
+                        budget,
+                        interests
+                    }));
+
+
+
+                    const res1 = await fetch('http://localhost:8080/QNITY_BE/generate-itinerary', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            request_id,
+                            startdate,
+                            enddate,
+                            people,
+                            budget,
+                            interests
+                        })
+                    });
+                    if (!res1.ok) {
+                        alert('Call AI failed');
+                        return;
+                    }
+                    const data1 = await res1.json();
+                    console.log("Server response:", data1);
+                    if (data1.message != 'OK') {
+                        alert('Call AI Failed 1');
+                        return;
+                    }
+                    alert('Success');
+                }
+
+
+
+            } catch (err) {
+                //alert('Wrong request or server error');
+                console.error(999, err);
+            }
+
+        });
+    </script>
+
     <!-- JavaScript Libraries -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
