@@ -10226,3 +10226,25 @@ footer p {
       display: block; 
   }
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;  /* phóng to phần nội dung chính, đẩy footer xuống */
+}
+.btn-itinerarys {
+  font-size: 1.5rem;            
+  padding: 15px 25px;          
+  background-color: #f78d00;    
+  color: #fff;                
+  border: none;                 
+  border-radius: 10px;         
+  cursor: pointer;              
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;         
+}
