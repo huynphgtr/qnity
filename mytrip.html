@@ -1,138 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Itinerary to Quy Nhon</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travel Itinerary to Quy Nhon</title>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" 
+    rel="stylesheet"
+  >
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto&display=swap"
-        rel="stylesheet">
-    <!-- Thêm AOS để tạo hiệu ứng cuộn -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <!-- Font Awesome -->
+  <link 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" 
+    rel="stylesheet"
+  >
+
+  <!-- AOS CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/aos@next/dist/aos.css" 
+  />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <header>
-        <h1>Your Travel Itinerary To Quy Nhon</h1>
-    </header>
-    <script>
-        const token = localStorage.getItem("jwt_token");
-        if (!token) {
-            alert('You need log in or sign up!')
-            window.location.href = "index.html";
-        }
-    </script>
-    <main>
-        <!-- <section class="day-section" data-aos="fade-up" id="defaultSample">
-            <div class="day-content">
-                <h2 class="day-title"> <span class="day-title-weight"></span></h2>
-                <ul class="schedule">
-                    <li><span class="time"></span><span class="cost"></span></li>
-                    <li><span class="time"></span><span class="cost"></span></li>
-                    <li><span class="time"></span><span class="cost"></span></li>
-                    <li><span class="time"></span><span class="cost"></span></li>
-                </ul>
-                <p class="total"><span class="price"></span></p>
-            </div>
-        </section> -->
-        <div id="itinerary-container"></div>
+  <header style="text-align:center; padding: 24px 0;">
+    <h1 style="margin:0;">Your Travel Itinerary To Quy Nhon</h1>
+  </header>
 
-        <!-- Nút Đánh giá chuyến đi -->
-        <button class="btn-itinerary" onclick="location.href ='review.html'">Đánh giá chuyến đi</button>
-    </main>
-    <footer class="site-footer" id="footer">
-        <div class="container footer-container">
-            <div class="footer-info">
-                <div class="footer-branding">
-                    <a href="index.html" style="text-decoration: none;">
-                        <h2>Q<span class="text-light">NITY</span></h2>
-                    </a>
-                    <p>
-                        Website helps tourists explore Quy Nhơn & personalize travel schedules. Solves common problem:
-                        travelers have difficulty finding information and planning travel itineraries that fit their
-                        interests and budget.
-                    </p>
-    </footer>
+  <script>
+  
+    const token = localStorage.getItem("jwt_token");
+    if (!token) {
+      alert('You need log in or sign up!');
+      window.location.href = "index.html";
+    }
+  </script>
 
+  <main>
+    <div id="itinerary-container"></div>
+    <button 
+      class="btn-itinerarys" 
+      onclick="location.href='review.html'"
+    >
+      FEEDBACK
+    </button>
+  </main>
 
-    </div>
-    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
-        style="border-color: rgba(256, 256, 256, .1) !important;">
-        <div class="row">
-            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-                <p class="m-0 text-white-50">Copyright &copy; <a href="#">TUTRU</a>. All Rights Reserved.</a>
-                </p>
-            </div>
-
+  <footer class="site-footer" id="footer">
+    <div class="container footer-container">
+      <div class="footer-info text-center mb-4">
+        <a href="index.html" style="text-decoration:none;">
+          <h2 class="m-0 text-primary">Q<span class="text-light">NITY</span></h2>
+        </a>
+        <p>
+          Website helps tourists explore Quy Nhơn & personalize travel schedules.
+          Solves common problem: travelers have difficulty finding information
+          and planning travel itineraries that fit their interests and budget.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="m-0 text-white-50">
+            Copyright © 
+            <a href="#" class="text-white-50" style="text-decoration:none;">
+              TUTRU
+            </a>. All Rights Reserved.
+          </p>
         </div>
+      </div>
     </div>
+  </footer>
 
-
-</body>
-
-<script>
+  <!-- Itinerary rendering script -->
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
       const saved = localStorage.getItem("AI response");
       if (!saved) return;
-
-      const data = JSON.parse(saved); // JSON gốc
+      const data = JSON.parse(saved);
       const container = document.getElementById("itinerary-container");
 
-      for (const date in data) {
-        // Tạo phần tiêu đề cho từng ngày
-        const dateHeader = document.createElement("h2");
-        dateHeader.textContent = `🗓️ ${date}`;
-        container.appendChild(dateHeader);
+      Object.keys(data).forEach((dateStr, dayIndex) => {
+        const acts = data[dateStr];
 
-        // Tạo danh sách activity
-        data[date].forEach((activity, index) => {
-          const card = document.createElement("div");
-          card.style.border = "1px solid #ccc";
-          card.style.padding = "8px";
-          card.style.margin = "10px 0";
-          card.innerHTML = `
-            <strong>⏰ ${activity.time}</strong><br>
-            📍 <b>${activity.location}</b><br>
-            📝 ${activity["activity description"]}<br>
-            💸 Estimate cost: ${activity["estimated cost"].toLocaleString()} VND
+        // Tính tổng chi phí
+        const total = acts
+          .reduce((s, a) => s + a["estimated cost"], 0)
+          .toLocaleString();
+
+        // Tạo section ngày
+        const section = document.createElement("section");
+        section.className = "day-section";
+        section.setAttribute("data-aos", "fade-up");
+
+        // Tiêu đề ngày
+        const title = document.createElement("h2");
+        title.className = "day-title";
+        title.innerText = `Day ${dayIndex + 1}: ${dateStr}`;
+        section.appendChild(title);
+
+        // Danh sách hoạt động
+        const ul = document.createElement("ul");
+        ul.className = "schedule";
+        acts.forEach(a => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <span class="time">⏰ ${a.time}</span>
+            <span class="description">📍 ${a.location} – ${a["activity description"]}</span>
+            <span class="cost">₫${a["estimated cost"].toLocaleString()}</span>
           `;
-          container.appendChild(card);
+          ul.appendChild(li);
         });
-      }
+        section.appendChild(ul);
+
+        // Tổng chi phí
+        const p = document.createElement("p");
+        p.className = "total";
+        p.innerHTML = `Total estimated cost for the day:<span class="price">₫${total}</span>`;
+        section.appendChild(p);
+
+        container.appendChild(section);
+      });
+
+      // Khởi động AOS
+      if (window.AOS) AOS.init();
     });
   </script>
 
-
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/tempusdominus/js/moment.min.js"></script>
-<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-<!-- Contact Javascript File -->
-<script src="mail/jqBootstrapValidation.min.js"></script>
-<script src="mail/contact.js"></script>
-
-<!-- Template Javascript -->
-<script src="js/main.js"></script>
-
-<!-- Script AOS -->
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
-
+  <!-- Thư viện JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script 
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script 
+    src="lib/owlcarousel/owl.carousel.min.js">
+  </script>
+  <script src="lib/tempusdominus/js/moment.min.js"></script>
+  <script 
+    src="lib/tempusdominus/js/moment-timezone.min.js">
+  </script>
+  <script 
+    src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js">
+  </script>
+  <script src="mail/jqBootstrapValidation.min.js"></script>
+  <script src="mail/contact.js"></script>
+  <script src="js/main.js"></script>
+  <script 
+    src="https://unpkg.com/aos@next/dist/aos.js">
+  </script>
+</body>
 </html>
