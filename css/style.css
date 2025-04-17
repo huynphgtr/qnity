@@ -10311,18 +10311,3 @@ main {
   font-weight: 600;
   margin-left: 8px;
 }
-/* Feedback button */
-.btn-itinerarys {
-  display: block;
-  margin: 24px auto;
-  padding: 12px 24px;
-  background: #007b7c;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.btn-itinerarys:hover {
-  background: #005f63;
-}
