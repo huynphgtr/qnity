@@ -10249,3 +10249,80 @@ main {
   transition: background-color 0.3s ease;
   margin-bottom: 10px;         
 }
+.day-section {
+  background: #fff7c0;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.day-title {
+  display: inline-block;
+  background: #007b7c;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+.schedule {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.schedule li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.schedule li:last-child {
+  border-bottom: none;
+}
+.time {
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+}
+.description {
+  flex: 2;
+  padding: 0 16px;
+  color: #444;
+}
+.cost {
+  font-weight: 600;
+  color: #e53935;
+  flex: 1;
+  text-align: right;
+}
+.total {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #222;
+}
+.price {
+  background: #fff;
+  color: #e53935;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+/* Feedback button */
+.btn-itinerarys {
+  display: block;
+  margin: 24px auto;
+  padding: 12px 24px;
+  background: #007b7c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn-itinerarys:hover {
+  background: #005f63;
+}
