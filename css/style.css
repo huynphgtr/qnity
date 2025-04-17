@@ -4102,7 +4102,10 @@ input[type="button"].btn-block {
   background: no-repeat center center;
   background-size: 100% 100%;
 }
-
+#Registration .card {
+  border-radius: 20px;
+  overflow: hidden;  /* giữ các phần con không tràn ra */
+}
 @media (max-width: 575.98px) {
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid, .navbar-expand-sm > .container-sm, .navbar-expand-sm > .container-md, .navbar-expand-sm > .container-lg, .navbar-expand-sm > .container-xl {
@@ -10005,6 +10008,7 @@ footer p {
   z-index: 200;
 }
 
+
 /* Tùy chỉnh màu chữ của navbar để dễ đọc trên ảnh carousel */
 .navbar-light .navbar-nav .nav-link {
   color: #ffffff !important; /* Chữ trắng để nổi bật trên ảnh */
@@ -10222,4 +10226,26 @@ footer p {
   .total {
       display: block; 
   }
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;  /* phóng to phần nội dung chính, đẩy footer xuống */
+}
+.btn-itinerarys {
+  font-size: 1.5rem;            
+  padding: 15px 25px;          
+  background-color: #f78d00;    
+  color: #fff;                
+  border: none;                 
+  border-radius: 10px;         
+  cursor: pointer;              
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;         
 }

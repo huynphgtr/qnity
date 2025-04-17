@@ -26,145 +26,118 @@
         <h1>Your Travel Itinerary To Quy Nhon</h1>
     </header>
     <script>
-        const token = localStorage.getItem("jwt_token");
+   const token = localStorage.getItem("jwt_token");
         if (!token) {
             alert('You need log in or sign up!')
             window.location.href = "index.html";
-        }
+         }
     </script>
     <main>
-        <section class="day-section" data-aos="fade-up">
-            <div class="day-image">
-                <img src="img/destination-3.jpg" alt="Thap Doi Cham Towers">
-            </div>
+        <!-- <section class="day-section" data-aos="fade-up" id="defaultSample">
             <div class="day-content">
-                <h2 class="day-title"> <span class="day-title-weight">Day 1 </span>: Arrival & City Tour</h2>
+                <h2 class="day-title"> <span class="day-title-weight"></span></h2>
                 <ul class="schedule">
-                    <li><span class="time">Morning (09:00 - 12:00)</span> Arrive at Quy Nhon, check-in at hotel <span
-                            class="cost">$30-$50/night</span></li>
-                    <li><span class="time">Afternoon (12:00 - 15:00)</span> Visit Thap Doi Cham Towers <span
-                            class="cost">$2</span></li>
-                    <li><span class="time">Afternoon (15:00 - 18:00)</span> Enjoy local cuisine at Surf Bar <span
-                            class="cost">$10 per meal</span></li>
-                    <li><span class="time">Evening (18:00 - 21:00)</span> Explore Quy Nhon Night Market <span
-                            class="cost">$5-$10</span></li>
+                    <li><span class="time"></span><span class="cost"></span></li>
+                    <li><span class="time"></span><span class="cost"></span></li>
+                    <li><span class="time"></span><span class="cost"></span></li>
+                    <li><span class="time"></span><span class="cost"></span></li>
                 </ul>
-                <p class="total">Total estimated cost for the day: <span class="price">$50 - $80</span></p>
+                <p class="total"><span class="price"></span></p>
             </div>
-        </section>
+        </section> -->
+        <div id="itinerary-container"></div>
 
-       <!-- Nút Đánh giá chuyến đi -->
-    <button class="btn-itinerary" onclick="location.href='review.html'">Đánh giá chuyến đi</button>
+        <!-- Nút Đánh giá chuyến đi -->
+        <button class="btn-itinerarys" onclick="location.href ='review.html'">FEEDBACK</button>
     </main>
     <footer class="site-footer" id="footer">
         <div class="container footer-container">
           <div class="footer-info">
-            <div class="footer-branding">
-              <h2>Q<span class="text-light">NITY</span></h2>
-
-        <!-- Nút Đánh giá chuyến đi -->
-        <button class="btn btn-primary" onclick="location.href='review.html'">Đánh giá chuyến đi</button>
-    </main>
-    <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
-        <div class="row pt-5">
-
-            <div class="col-lg-6 col-md-6 mb-5">
-                <a href="" class="navbar-brand">
-
-                    <h1 class="m-0 text-primary">Q<span class="text-footer ">NITY</span></h1>
-                </a>
-                <p>Website helps tourists explore Quy Nhon & personalize travel schedules Solves common problem:
-                    travelers have difficulty finding information and planning travel itineraries that fit their
-                    interests and budget.</p>
-                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Follow Us</h6>
-                <div class="d-flex justify-content-start">
-                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-
-            <div class="col-lg-1 col-md-6 mb-5">
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Contact Us</h5>
-                <p><i class="fa fa-map-marker-alt mr-2"></i>FPT University</p>
-                <p><i class="fa fa-phone-alt mr-2"></i>+084 1234566</p>
-                <p><i class="fa fa-envelope mr-2"></i>info@tutru.com</p>
-                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Newsletter</h6>
-                <div class="w-100">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-light" style="padding: 25px;"
-                            placeholder="Your Email">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary px-3">SEND ME</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <p>
-              Website helps tourists explore Quy Nhơn & personalize travel schedules. Solves common problem: 
-              travelers have difficulty finding information and planning travel itineraries that fit their interests and budget.
-            </p>
-          </div>
-          <div class="footer-bottom">
-            <p>&copy; 2025 TUTRU. All rights reserved.</p>
-          </div>
-        </div>
-
-      </footer>
-       <!-- JavaScript Libraries -->
-       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-       <script src="lib/easing/easing.min.js"></script>
-       <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-       <script src="lib/tempusdominus/js/moment.min.js"></script>
-       <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-       <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-   
-       <!-- Contact Javascript File -->
-       <script src="mail/jqBootstrapValidation.min.js"></script>
-       <script src="mail/contact.js"></script>
-   
-       <!-- Template Javascript -->
-       <script src="js/main.js"></script>
-
-    </div>
-    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
-        style="border-color: rgba(256, 256, 256, .1) !important;">
-        <div class="row">
-            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-                <p class="m-0 text-white-50">Copyright &copy; <a href="#">TUTRU</a>. All Rights Reserved.</a>
+            <div class="footer-branding text-center mb-4">
+              <a href="index.html" style="text-decoration: none;">
+                <h2>Q<span class="text-light">NITY</span></h2>
+              </a>
+              <p>
+                Website helps tourists explore Quy Nhơn & personalize travel schedules.
+                Solves common problem: travelers have difficulty finding information
+                and planning travel itineraries that fit their interests and budget.
+              </p>
+            </div> <!-- .footer-branding -->
+      
+            <div class="row">
+              <div class="col-12 text-center">
+                <p class="m-0 text-white-50">
+                  Copyright ©
+                  <a href="#" class="text-white-50" style="text-decoration: none;">
+                    TUTRU
+                  </a>
+                  . All Rights Reserved.
                 </p>
-            </div>
+              </div>
+            </div> <!-- .row -->
+      
+          </div> <!-- .footer-info -->
+        </div> <!-- .container -->
+      </footer>
 
-        </div>
-    </div>
+  
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Script AOS -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const saved = localStorage.getItem("AI response");
+      if (!saved) return;
+
+      const data = JSON.parse(saved); // JSON gốc
+      const container = document.getElementById("itinerary-container");
+
+      for (const date in data) {
+        // Tạo phần tiêu đề cho từng ngày
+        const dateHeader = document.createElement("h2");
+        dateHeader.textContent = `🗓️ ${date}`;
+        container.appendChild(dateHeader);
+
+        // Tạo danh sách activity
+        data[date].forEach((activity, index) => {
+          const card = document.createElement("div");
+          card.style.border = "1px solid #ccc";
+          card.style.padding = "8px";
+          card.style.margin = "10px 0";
+          card.innerHTML = `
+            <strong>⏰ ${activity.time}</strong><br>
+            📍 <b>${activity.location}</b><br>
+            📝 ${activity["activity description"]}<br>
+            💸 Estimate cost: ${activity["estimated cost"].toLocaleString()} VND
+          `;
+          container.appendChild(card);
+        });
+      }
+    });
+  </script>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+<!-- Script AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 </html>
