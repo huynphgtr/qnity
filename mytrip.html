@@ -45,7 +45,7 @@
                 <p class="total"><span class="price"></span></p>
             </div>
         </section> -->
-        <div id="itineraryOutput"></div>
+        <div id="itinerary-container"></div>
 
         <!-- Nút Đánh giá chuyến đi -->
         <button class="btn-itinerarys" onclick="location.href ='review.html'">FEEDBACK</button>
@@ -87,37 +87,35 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const storedResponse = localStorage.getItem('AI response');
-        console.log("Chuỗi phản hồi từ AI:", storedResponse);
+      const saved = localStorage.getItem("AI response");
+      if (!saved) return;
 
-        let itineraryData = null;
-        if (storedResponse) {
-            const jsonStartIndex = storedResponse.indexOf('{');
-            const jsonEndIndex = storedResponse.lastIndexOf('}');
+      const data = JSON.parse(saved); // JSON gốc
+      const container = document.getElementById("itinerary-container");
 
-            if (jsonStartIndex !== -1 && jsonEndIndex !== -1 && jsonStartIndex < jsonEndIndex) {
-                const jsonString = storedResponse.substring(jsonStartIndex, jsonEndIndex + 1);
-                console.log("Chuỗi JSON trích xuất:", jsonString); // Kiểm tra chuỗi JSON đã trích xuất
-                try {
-                    itineraryData = JSON.parse(jsonString);
-                } catch (error) {
-                    console.log("Mã Unicode ký tự đầu tiên:", jsonString.charCodeAt(0));
-                    console.error("Lỗi khi phân tích chuỗi JSON đã trích xuất:", error);
-                }
-            } else {
-                console.error("Không tìm thấy chuỗi JSON hợp lệ trong phản hồi.");
-            }
-        } else {
-            console.log("Không tìm thấy dữ liệu trong Local Storage với khóa 'AI response'.");
-        }
-        
-        
-        // console.log("Dữ liệu lịch trình đã phân tích:", itineraryData);
+      for (const date in data) {
+        // Tạo phần tiêu đề cho từng ngày
+        const dateHeader = document.createElement("h2");
+        dateHeader.textContent = `🗓️ ${date}`;
+        container.appendChild(dateHeader);
+
+        // Tạo danh sách activity
+        data[date].forEach((activity, index) => {
+          const card = document.createElement("div");
+          card.style.border = "1px solid #ccc";
+          card.style.padding = "8px";
+          card.style.margin = "10px 0";
+          card.innerHTML = `
+            <strong>⏰ ${activity.time}</strong><br>
+            📍 <b>${activity.location}</b><br>
+            📝 ${activity["activity description"]}<br>
+            💸 Estimate cost: ${activity["estimated cost"].toLocaleString()} VND
+          `;
+          container.appendChild(card);
+        });
+      }
     });
-</script>
-
-
-
+  </script>
 
 
 <!-- JavaScript Libraries -->
