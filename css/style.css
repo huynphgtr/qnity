@@ -9551,11 +9551,7 @@ h6,
   }
 }
 
-@media (min-width: 992px) {
-  #header-carousel,
-  .page-header {
-    margin-top: -42px;
-  }
+
 }
 
 .carousel-caption {
@@ -10002,14 +9998,12 @@ footer p {
 
 /* Đảm bảo navbar trong suốt và nằm trên carousel */
 .navbar {
-  padding-top: 150px;
-  margin-top: 30px;
-  background: transparent !important;
+  padding-top: 20px;     /* giảm từ 150px xuống 20px */
+  margin-top: 0;         /* bỏ margin trên */
   position: absolute;
   top: 0;
   width: 100%;
   z-index: 200;
-  transition: background-color 0.3s ease;
 }
 
 /* Tùy chỉnh màu chữ của navbar để dễ đọc trên ảnh carousel */
