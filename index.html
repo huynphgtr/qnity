@@ -451,17 +451,6 @@
                 }
                 if (data.message == 'OK' && data.data != 0) {
                     console.log('idrequest', data.data);
-
-                    // console.log(222, "http://localhost:8080/QNITY_BE/generate-itinerary", JSON.stringify({
-                    //     startdate,
-                    //     enddate,
-                    //     people,
-                    //     budget,
-                    //     interests
-                    // }));
-
-
-
                     const res1 = await fetch('http://localhost:8080/QNITY_BE/generate-itinerary', {
                         method: 'POST',
                         headers: {
@@ -483,12 +472,8 @@
                     }
                     const data1 = await res1.json();
                     console.log("Server response:", data1);
-                    if (data1.message != 'OK') {
-                        alert('Call AI Failed 1');
-                        return;
-                    }
                     alert('Success');
-                    localStorage.setItem('AI response', JSON.stringify(data1.data)); 
+                    localStorage.setItem('AI response', JSON.stringify(data1)); 
                     window.location.href = "mytrip.html";
                 }
 
