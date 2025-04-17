@@ -32,14 +32,7 @@
     <h1 style="margin:0;">Your Travel Itinerary To Quy Nhon</h1>
   </header>
 
-  <script>
-  
-    const token = localStorage.getItem("jwt_token");
-    if (!token) {
-      alert('You need log in or sign up!');
-      window.location.href = "index.html";
-    }
-  </script>
+
 
   <main>
     <div id="itinerary-container"></div>
@@ -76,60 +69,51 @@
     </div>
   </footer>
 
-  <!-- Itinerary rendering script -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const saved = localStorage.getItem("AI response");
       if (!saved) return;
       const data = JSON.parse(saved);
       const container = document.getElementById("itinerary-container");
-
-      Object.keys(data).forEach((dateStr, dayIndex) => {
+    
+      // Xoá sạch container (nếu có)
+      container.innerHTML = "";
+    
+      Object.keys(data).forEach((dateStr, idx) => {
         const acts = data[dateStr];
-
         // Tính tổng chi phí
         const total = acts
-          .reduce((s, a) => s + a["estimated cost"], 0)
+          .reduce((sum, a) => sum + a["estimated cost"], 0)
           .toLocaleString();
-
-        // Tạo section ngày
-        const section = document.createElement("section");
-        section.className = "day-section";
-        section.setAttribute("data-aos", "fade-up");
-
-        // Tiêu đề ngày
-        const title = document.createElement("h2");
-        title.className = "day-title";
-        title.innerText = `Day ${dayIndex + 1}: ${dateStr}`;
-        section.appendChild(title);
-
-        // Danh sách hoạt động
-        const ul = document.createElement("ul");
-        ul.className = "schedule";
-        acts.forEach(a => {
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <span class="time">⏰ ${a.time}</span>
-            <span class="description">📍 ${a.location} – ${a["activity description"]}</span>
-            <span class="cost">₫${a["estimated cost"].toLocaleString()}</span>
-          `;
-          ul.appendChild(li);
-        });
-        section.appendChild(ul);
-
-        // Tổng chi phí
-        const p = document.createElement("p");
-        p.className = "total";
-        p.innerHTML = `Total estimated cost for the day:<span class="price">₫${total}</span>`;
-        section.appendChild(p);
-
-        container.appendChild(section);
+    
+        // Tạo block HTML cho cả ngày
+        const html = `
+          <section class="day-section" data-aos="fade-up">
+            <h2 class="day-title">Day ${idx + 1}: ${dateStr}</h2>
+            <ul class="schedule">
+              ${acts.map(a => `
+                <li>
+                  <span class="time">⏰ ${a.time}</span>
+                  <span class="description">📍 ${a.location} – ${a["activity description"]}</span>
+                  <span class="cost">₫${a["estimated cost"].toLocaleString()}</span>
+                </li>
+              `).join("")}
+            </ul>
+            <p class="total">
+              Total estimated cost for the day:
+              <span class="price">₫${total}</span>
+            </p>
+          </section>
+        `;
+    
+        container.insertAdjacentHTML("beforeend", html);
       });
-
-      // Khởi động AOS
+    
+      // Khởi chạy AOS nếu có
       if (window.AOS) AOS.init();
     });
-  </script>
+    </script>
+    
 
   <!-- Thư viện JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
