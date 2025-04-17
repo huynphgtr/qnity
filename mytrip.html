@@ -82,9 +82,10 @@
       Object.keys(data).forEach((dateStr, idx) => {
         const acts = data[dateStr];
         // Tính tổng chi phí
-        const total = acts
-          .reduce((sum, a) => sum + a["estimated cost"], 0)
-          .toLocaleString();
+        const totalSum = acts
+        .reduce((sum, a) => sum + Number(a["estimated cost"]), 0);
+
+        const total = totalSum.toLocaleString();
     
         // Tạo block HTML cho cả ngày
         const html = `
