@@ -115,6 +115,66 @@
     });
     </script>
     
+<!-- Chat bubble -->
+<div id="chat-bubble" onclick="toggleChat()">
+  <i class="fas fa-comment-dots"></i>
+</div>
+
+<!-- Chat box -->
+<div id="chat-box">
+  <div class="header">
+    <img src="https://i.pravatar.cc/32" alt="avatar" class="avatar">
+    <div class="info">
+      AI CHAT BOT<br>
+      <span class="status">online</span>
+    </div>
+  </div>
+  <div class="messages">
+    <div class="bot-msg">
+      Hello, let me assist you with any question you have.
+    </div>
+  </div>
+  <div class="input">
+    <input type="text" placeholder="Write your message and press Enter" 
+           onkeydown="if(event.key==='Enter') sendMessage()">
+    <button onclick="sendMessage()">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+  function toggleChat() {
+    document.getElementById('chat-box').classList.toggle('active');
+  }
+  
+  function sendMessage() {
+    const inp = document.querySelector('#chat-box .input input');
+    const text = inp.value.trim();
+    if (!text) return;
+  
+    const msgs = document.querySelector('#chat-box .messages');
+  
+    // 1) Tạo tin nhắn của user (căn phải)
+    const userDiv = document.createElement('div');
+    userDiv.className = 'user-msg';
+    userDiv.textContent = text;
+    msgs.appendChild(userDiv);
+  
+    inp.value = '';
+    msgs.scrollTop = msgs.scrollHeight;
+  
+    // 2) Demo: giả lập bot trả lời sau 600ms
+    setTimeout(() => {
+      const botDiv = document.createElement('div');
+      botDiv.className = 'bot-msg';
+      botDiv.textContent = 'Xin chào! Tôi đã nhận tin nhắn của bạn: "' + text + '"';
+      msgs.appendChild(botDiv);
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 600);
+  }
+  </script>
+  
 
   <!-- Thư viện JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
