@@ -370,7 +370,7 @@
             const budget = document.getElementById('budget').value.trim();
             const checkboxes = document.querySelectorAll('input[name="interests"]:checked');
             const interests = Array.from(checkboxes).map(checkbox => checkbox.value);
-            let request_id = null;
+            let id = 0;
 
             // validate date input
             const start = new Date(startdate);
@@ -453,12 +453,14 @@
                 }
                 if (data.message == 'OK' && data.data != 0) {
                     console.log('idrequest', data.data);
+                    id = data.data; 
                     const res1 = await fetch('http://localhost:8080/QNITY_BE/generate-itinerary', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
+                            id,
                             startdate,
                             enddate,
                             people,

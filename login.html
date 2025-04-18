@@ -184,12 +184,17 @@
             background-color: #da7e05;
             border-color: #af6402;
         }
+        .notice{
+            margin: 0;
+            color: green;
+            font-weight: bolder;
+        }
     </style>
 </head>
 <script>
     const token = localStorage.getItem("jwt_token");
     if (token) {
-        alert('You already log in!')        
+        // alert('You already log in!')        
         window.location.href = "index.html"; 
     }
 </script>
@@ -211,8 +216,10 @@
                     <span class="toggle-password"></span>
                 </div>
                 <a href="#" class="forgot-password">Forgot Password?</a>
+                <p class="notice"></p>
                 <button type="submit" class="btn font-weight-bolder btn-primary">Log in</button>
             </form>
+            
             <p class="signup-text font-weight-lighter">Don't have an account? <a href="signup.html"
                     class="signup-link">Sign up now!!</a></p>
         </div>
@@ -255,7 +262,7 @@
                     alert('Login Failed');
                     return;
                 }
-                alert('Login Success!');
+                document.querySelectorAll("notice").textContent = "Login Success";
                 window.location.href = "/index.html";
 
 

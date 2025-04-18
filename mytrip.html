@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,46 +8,28 @@
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" 
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
-  <link 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" 
-    rel="stylesheet"
-  >
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
   <!-- AOS CSS -->
-  <link 
-    rel="stylesheet" 
-    href="https://unpkg.com/aos@next/dist/aos.css" 
-  />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <header style="text-align:center; padding: 24px 0;">
     <h1 style="margin:0;">Your Travel Itinerary To Quy Nhon</h1>
   </header>
 
-  <script>
-  
-    const token = localStorage.getItem("jwt_token");
-    if (!token) {
-      alert('You need log in or sign up!');
-      window.location.href = "index.html";
-    }
-  </script>
+
 
   <main>
     <div id="itinerary-container"></div>
-    <button 
-      class="btn-itinerarys" 
-      onclick="location.href='review.html'"
-    >
+    <button class="btn-itinerarys" onclick="location.href='review.html'">
       FEEDBACK
     </button>
   </main>
@@ -66,7 +49,7 @@
       <div class="row">
         <div class="col-12 text-center">
           <p class="m-0 text-white-50">
-            Copyright © 
+            Copyright ©
             <a href="#" class="text-white-50" style="text-decoration:none;">
               TUTRU
             </a>. All Rights Reserved.
@@ -76,7 +59,6 @@
     </div>
   </footer>
 
-  <!-- Itinerary rendering script -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const saved = localStorage.getItem("AI response");
@@ -84,74 +66,64 @@
       const data = JSON.parse(saved);
       const container = document.getElementById("itinerary-container");
 
-      Object.keys(data).forEach((dateStr, dayIndex) => {
+      // Xoá sạch container (nếu có)
+      container.innerHTML = "";
+
+      Object.keys(data).forEach((dateStr, idx) => {
         const acts = data[dateStr];
-
         // Tính tổng chi phí
-        const total = acts
-          .reduce((s, a) => s + a["estimated cost"], 0)
-          .toLocaleString();
+        const totalSum = acts
+          .reduce((sum, a) => sum + Number(a["estimated cost"]), 0);
 
-        // Tạo section ngày
-        const section = document.createElement("section");
-        section.className = "day-section";
-        section.setAttribute("data-aos", "fade-up");
+        const total = totalSum.toLocaleString();
+        const [year, month, day] = dateStr.split('-');
+        const formattedDate = `${day}/${month}/${year}`;
+        // Tạo block HTML cho cả ngày
+        const html = `
+          <section class="day-section" data-aos="fade-up">
+            <h2 class="day-title">Day  ${idx + 1}: ${formattedDate}</h2>
+            <ul class="schedule">
+              ${acts.map(a => `
+                <li>
+                  <span class="time">⏰ ${a.time}</span>
+                  <span class="description">📍 ${a.location} – ${a["activity description"]}</span>
+                  <span class="cost">₫${a["estimated cost"].toLocaleString()}</span>
+                </li>
+              `).join("")}
+            </ul>
+            <p class="total">
+              Total estimated cost for the day:
+              <span class="price">₫${total}</span>
+            </p>
+          </section>
+        `;
 
-        // Tiêu đề ngày
-        const title = document.createElement("h2");
-        title.className = "day-title";
-        title.innerText = `Day ${dayIndex + 1}: ${dateStr}`;
-        section.appendChild(title);
-
-        // Danh sách hoạt động
-        const ul = document.createElement("ul");
-        ul.className = "schedule";
-        acts.forEach(a => {
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <span class="time">⏰ ${a.time}</span>
-            <span class="description">📍 ${a.location} – ${a["activity description"]}</span>
-            <span class="cost">₫${a["estimated cost"].toLocaleString()}</span>
-          `;
-          ul.appendChild(li);
-        });
-        section.appendChild(ul);
-
-        // Tổng chi phí
-        const p = document.createElement("p");
-        p.className = "total";
-        p.innerHTML = `Total estimated cost for the day:<span class="price">₫${total}</span>`;
-        section.appendChild(p);
-
-        container.appendChild(section);
+        container.insertAdjacentHTML("beforeend", html);
       });
 
-      // Khởi động AOS
+      // Khởi chạy AOS nếu có
       if (window.AOS) AOS.init();
     });
   </script>
 
+
   <!-- Thư viện JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script 
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
   </script>
   <script src="lib/easing/easing.min.js"></script>
-  <script 
-    src="lib/owlcarousel/owl.carousel.min.js">
+  <script src="lib/owlcarousel/owl.carousel.min.js">
   </script>
   <script src="lib/tempusdominus/js/moment.min.js"></script>
-  <script 
-    src="lib/tempusdominus/js/moment-timezone.min.js">
+  <script src="lib/tempusdominus/js/moment-timezone.min.js">
   </script>
-  <script 
-    src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js">
+  <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js">
   </script>
   <script src="mail/jqBootstrapValidation.min.js"></script>
   <script src="mail/contact.js"></script>
   <script src="js/main.js"></script>
-  <script 
-    src="https://unpkg.com/aos@next/dist/aos.js">
+  <script src="https://unpkg.com/aos@next/dist/aos.js">
   </script>
 </body>
+
 </html>
